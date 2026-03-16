@@ -1,0 +1,210 @@
+/* ── Bobrick Handover Importer Panel ──────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bobrick-blue: #00AEEF;
+  --bobrick-blue-dark: #0090C8;
+  --bobrick-blue-deeper: #006fa3;
+  --bg: #ffffff;
+  --surface: #f4f9fd;
+  --surface2: #e8f4fb;
+  --border: #b8dff0;
+  --text: #1a2e3b;
+  --muted: #6b8fa3;
+  --success: #00a86b;
+  --danger: #e03131;
+  --radius: 10px;
+}
+
+#hi-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 2147483647;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--bobrick-blue);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,174,239,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform .18s, box-shadow .18s;
+  color: white;
+  font-weight: 700;
+}
+#hi-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0,174,239,0.6);
+  background: var(--bobrick-blue-dark);
+}
+#hi-toggle.open {
+  background: var(--bobrick-blue-deeper);
+  font-size: 18px;
+}
+
+#hi-panel {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  z-index: 2147483646;
+  width: 340px;
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0,111,163,0.18);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  overflow: hidden;
+  display: none;
+  animation: hiSlideUp .22s ease forwards;
+}
+#hi-panel.visible { display: block; }
+
+@keyframes hiSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* header */
+.hi-header {
+  background: var(--bobrick-blue);
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hi-header-logo {
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+}
+.hi-header-text { flex: 1; }
+.hi-header-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: #ffffff;
+  letter-spacing: .01em;
+}
+.hi-header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 1px;
+}
+
+/* body */
+.hi-body { padding: 14px 16px; background: #fff; }
+
+/* drop zone */
+.hi-drop {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 22px 14px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--surface);
+  position: relative;
+  transition: border-color .2s, background .2s;
+  margin-bottom: 12px;
+}
+.hi-drop.over, .hi-drop:hover {
+  border-color: var(--bobrick-blue);
+  background: #e6f7fd;
+}
+.hi-drop input[type=file] {
+  position: absolute; inset: 0; opacity: 0;
+  cursor: pointer; width: 100%; height: 100%;
+}
+.hi-drop-icon { font-size: 26px; margin-bottom: 7px; }
+.hi-drop-hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.hi-drop-hint b { color: var(--bobrick-blue); }
+
+/* file pill */
+.hi-pill {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #e6f7fd;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.hi-pill.show { display: flex; }
+.hi-pill-icon { font-size: 18px; }
+.hi-pill-name { font-size: 11px; color: var(--bobrick-blue-deeper); font-weight: 600; font-family: monospace; }
+.hi-pill-sub  { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+/* field list */
+.hi-fields { margin-bottom: 12px; max-height: 210px; overflow-y: auto; }
+.hi-field {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid #edf6fc;
+}
+.hi-field:last-child { border-bottom: none; }
+.hi-field-status {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center; font-size: 9px;
+}
+.hi-field-status.ok   { background: #d4f4e8; color: var(--success); }
+.hi-field-status.skip { background: #e8f0f5; color: var(--muted); }
+.hi-field-status.err  { background: #fde8e8; color: var(--danger); }
+.hi-field-name { font-size: 11px; color: var(--muted); flex: 1; line-height: 1.4; }
+.hi-field-val  { font-size: 11px; color: var(--text); font-weight: 600; max-width: 130px; text-align: right; word-break: break-word; line-height: 1.4; }
+.hi-field-val.dim { color: #b0c8d8; font-weight: 400; font-style: italic; }
+
+/* status bar */
+.hi-status {
+  font-size: 11px; color: var(--muted); padding: 4px 0 2px;
+  min-height: 18px;
+}
+.hi-status.ok  { color: var(--success); }
+.hi-status.err { color: var(--danger); }
+
+/* button */
+.hi-btn {
+  width: 100%; padding: 11px; border-radius: 8px;
+  background: var(--bobrick-blue);
+  color: #fff;
+  border: none; font-weight: 700; font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all .18s;
+  margin-top: 6px; display: none;
+}
+.hi-btn.show { display: block; }
+.hi-btn:hover {
+  background: var(--bobrick-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,174,239,0.35);
+}
+.hi-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.hi-reset {
+  width: 100%; padding: 8px; border-radius: 8px;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer; margin-top: 7px; display: none;
+  transition: border-color .18s, color .18s;
+}
+.hi-reset.show { display: block; }
+.hi-reset:hover { border-color: var(--bobrick-blue); color: var(--bobrick-blue); }
+
+/* success state */
+.hi-success {
+  display: none; text-align: center; padding: 10px 0 4px;
+}
+.hi-success.show { display: block; }
+.hi-success-icon { font-size: 32px; margin-bottom: 6px; }
+.hi-success-msg  { font-size: 13px; font-weight: 700; color: var(--success); margin-bottom: 4px; }
+.hi-success-sub  { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* scrollbar */
+.hi-fields::-webkit-scrollbar { width: 3px; }
+.hi-fields::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }

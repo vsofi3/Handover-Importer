@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Handover Importer",
+  "version": "1.0",
+  "description": "Drag & drop a handover .xlsx to auto-fill the Smartsheet form fields.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": [
+    "https://app.smartsheet.com/*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Handover Importer"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://app.smartsheet.com/b/form/*"],
+      "js": ["xlsx.min.js", "content.js"],
+      "css": ["panel.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
